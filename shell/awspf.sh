@@ -3,7 +3,7 @@
 # set -e
 
 # 色をつけて出力する
-echo -e "\e[35mcurrent aws profile: $AWS_PROFILE \e[m\n"
+printf "aws profile:\033[35m $AWS_PROFILE \033[m\n\n"
 
 AWS_CONFIG="$HOME/.aws/config"
 

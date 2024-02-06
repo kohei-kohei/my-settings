@@ -6,11 +6,16 @@
 printf "aws profile:\033[35m $AWS_PROFILE \033[m\n\n"
 
 AWS_CONFIG="$HOME/.aws/config"
-
-pattern="^\[profile (.*)\]$"
+AWS_CREDENTIALS="$HOME/.aws/credentials"
 
 # ファイルを読み込んでパターンにマッチする部分を抽出
-profiles=($(grep -oE "$pattern" "$AWS_CONFIG" | sed 's/\[profile//g; s/\]//g' ))
+pattern="^\[profile (.*)\]$"
+configs=($(grep -oE "$pattern" "$AWS_CONFIG" | sed 's/\[profile//g; s/\]//g' ))
+
+pattern="^\[(.*)\]$"
+credentials=($(grep -oE "$pattern" "$AWS_CREDENTIALS" | sed 's/\[//g; s/\]//g' ))
+
+profiles=("${configs[@]}" "${credentials[@]}")
 
 PS3='select profile number >> '
 
